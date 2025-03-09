@@ -1,15 +1,15 @@
 package cleancode.minesweeper.tobe.minesweeper;
 
-import cleancode.minesweeper.tobe.minesweeper.board.GameBoard;
-import cleancode.minesweeper.tobe.minesweeper.board.GameStatus;
-import cleancode.minesweeper.tobe.minesweeper.config.GameConfig;
-import cleancode.minesweeper.tobe.minesweeper.exception.GameException;
 import cleancode.minesweeper.tobe.game.GameInitializable;
 import cleancode.minesweeper.tobe.game.GameRunnable;
+import cleancode.minesweeper.tobe.minesweeper.board.GameBoard;
+import cleancode.minesweeper.tobe.minesweeper.board.GameStatus;
+import cleancode.minesweeper.tobe.minesweeper.board.position.CellPosition;
+import cleancode.minesweeper.tobe.minesweeper.config.GameConfig;
+import cleancode.minesweeper.tobe.minesweeper.exception.GameException;
 import cleancode.minesweeper.tobe.minesweeper.io.BoardIndexConverter;
 import cleancode.minesweeper.tobe.minesweeper.io.InputHandler;
 import cleancode.minesweeper.tobe.minesweeper.io.OutputHandler;
-import cleancode.minesweeper.tobe.minesweeper.board.position.CellPosition;
 import cleancode.minesweeper.tobe.minesweeper.user.UserAction;
 
 public class MineSweeper implements GameInitializable, GameRunnable {
@@ -60,7 +60,7 @@ public class MineSweeper implements GameInitializable, GameRunnable {
     private CellPosition getCellInputFromUser() {
         outputHandler.showCommentForSelectingCell();
         CellPosition cellPosition = inputHandler.getCellPositionFromUser();
-        if(gameBoard.isInvalidCellPosition(cellPosition)){
+        if (gameBoard.isInvalidCellPosition(cellPosition)) {
             throw new GameException("잘못된 좌표를 선택하였습니다.");
         }
         return cellPosition;

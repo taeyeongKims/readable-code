@@ -11,6 +11,7 @@ public class FlagCellSignProvider implements CellSignProvidable {
     public boolean supports(CellSnapshot cellSnapshot) {
         return cellSnapshot.isSameStatus(CellSnapshotStatus.FLAG);
     }
+
     @Override
     public String provide(CellSnapshot cellSnapshot) {
         return FLAG_SIGN;
