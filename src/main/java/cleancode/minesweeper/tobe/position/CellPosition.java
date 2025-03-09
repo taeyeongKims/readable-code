@@ -31,16 +31,16 @@ public class CellPosition {
         return Objects.hash(rowIndex, colIndex);
     }
 
+    public int getRowIndex() {
+        return rowIndex;
+    }
+
     public boolean isRowIndexMoreThanOrEqual(int rowSize) {
         return this.rowIndex >= rowSize;
     }
 
     public boolean isColIndexMoreThanOrEqual(int colSize) {
         return this.colIndex >= colSize;
-    }
-
-    public int getRowIndex() {
-        return rowIndex;
     }
 
     public int getColIndex() {

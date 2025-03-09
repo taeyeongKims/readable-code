@@ -53,6 +53,20 @@ public class MineSweeper implements GameInitializable, GameRunnable {
         }
     }
 
+    private CellPosition getCellInputFromUser() {
+        outputHandler.showCommentForSelectingCell();
+        CellPosition cellPosition = inputHandler.getCellPositionFromUser();
+        if(gameBoard.isInvalidCellPosition(cellPosition)){
+            throw new GameException("잘못된 좌표를 선택하였습니다.");
+        }
+        return cellPosition;
+    }
+
+    private UserAction getUserActionInputFromUser() {
+        outputHandler.showCommentForUserAction();
+        return inputHandler.getUserActionFromUser();
+    }
+
     private void actOnCell(CellPosition cellPosition, UserAction userAction) {
         if (doesUserChooseToPlantFlag(userAction)) {
             gameBoard.flagAt(cellPosition);
@@ -67,33 +81,11 @@ public class MineSweeper implements GameInitializable, GameRunnable {
         throw new GameException("잘못된 번호를 선택하셨습니다.");
     }
 
-    private boolean doesUserLoseTheGame() {
-        return gameStatus == GameStatus.LOSE;
-    }
-
-    private boolean doesUserChooseToOpenCell(UserAction userAction) {
-        return userAction == UserAction.OPEN;
-    }
-
     private boolean doesUserChooseToPlantFlag(UserAction userAction) {
         return userAction == UserAction.FLAG;
     }
 
-    private UserAction getUserActionInputFromUser() {
-        outputHandler.showCommentForUserAction();
-        return inputHandler.getUserActionFromUser();
-    }
-
-    private CellPosition getCellInputFromUser() {
-        outputHandler.showCommentForSelectingCell();
-        CellPosition cellPosition = inputHandler.getCellPositionFromUser();
-        if(gameBoard.isInvalidCellPosition(cellPosition)){
-            throw new GameException("잘못된 좌표를 선택하였습니다.");
-        }
-        return cellPosition;
-    }
-
-    private boolean doesUserWinTheGame() {
-        return gameStatus == GameStatus.WIN;
+    private boolean doesUserChooseToOpenCell(UserAction userAction) {
+        return userAction == UserAction.OPEN;
     }
 }
