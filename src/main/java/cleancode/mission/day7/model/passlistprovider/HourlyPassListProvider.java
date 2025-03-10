@@ -1,12 +1,12 @@
-package cleancode.mission.day7.service;
+package cleancode.mission.day7.model.passlistprovider;
 
-import cleancode.mission.day7.model.StudyCafePass;
-import cleancode.mission.day7.model.StudyCafePassImpl;
-import cleancode.mission.day7.model.StudyCafePassType;
+import cleancode.mission.day7.model.studycafepass.StudyCafePass;
+import cleancode.mission.day7.model.studycafepass.StudyCafePassImpl;
+import cleancode.mission.day7.model.studycafepass.StudyCafePassType;
 
 import java.util.List;
 
-public class FixedPassListProvider implements PassListProvider {
+public class HourlyPassListProvider implements PassListProvider {
 
     @Override
     public List<StudyCafePass> getPassList() {
@@ -17,5 +17,4 @@ public class FixedPassListProvider implements PassListProvider {
             .map(StudyCafePass.class::cast)
             .toList();
     }
-
 }

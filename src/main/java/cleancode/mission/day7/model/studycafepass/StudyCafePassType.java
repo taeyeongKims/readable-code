@@ -1,4 +1,4 @@
-package cleancode.mission.day7.model;
+package cleancode.mission.day7.model.studycafepass;
 
 public enum StudyCafePassType {
 

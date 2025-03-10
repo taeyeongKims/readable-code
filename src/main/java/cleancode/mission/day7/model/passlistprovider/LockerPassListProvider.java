@@ -1,7 +1,8 @@
-package cleancode.mission.day7.service;
+package cleancode.mission.day7.model.passlistprovider;
 
-import cleancode.mission.day7.model.StudyCafeLockerPassImpl;
-import cleancode.mission.day7.model.StudyCafePass;
+import cleancode.mission.day7.model.studycafepass.StudyCafeLockerPassImpl;
+import cleancode.mission.day7.model.studycafepass.StudyCafePass;
+import cleancode.studycafe.asis.model.StudyCafeLockerPass;
 
 import java.util.List;
 
@@ -19,12 +20,12 @@ public class LockerPassListProvider implements PassListProvider {
         List<StudyCafePass> lockerPassList = getPassList();
 
         return lockerPassList.stream()
-                .filter(option ->
-                    option.getPassType() == pass.getPassType()
-                        && option.getDuration() == pass.getDuration()
-                )
-                .map(StudyCafeLockerPassImpl.class::cast)
-                .findFirst()
-                .orElse(null);
+            .filter(option ->
+                option.getPassType() == pass.getPassType()
+                    && option.getDuration() == pass.getDuration()
+            )
+            .map(StudyCafeLockerPassImpl.class::cast)
+            .findFirst()
+            .orElse(null);
     }
 }

@@ -3,12 +3,12 @@ package cleancode.mission.day7;
 import cleancode.mission.day7.exception.AppException;
 import cleancode.mission.day7.io.InputHandler;
 import cleancode.mission.day7.io.OutputHandler;
-import cleancode.mission.day7.model.StudyCafeLockerPassImpl;
-import cleancode.mission.day7.model.StudyCafePass;
-import cleancode.mission.day7.model.StudyCafePassType;
-import cleancode.mission.day7.service.LockerPassListProvider;
-import cleancode.mission.day7.service.PassListProvider;
-import cleancode.mission.day7.service.StudyCafePassListProvider;
+import cleancode.mission.day7.model.passlistprovider.LockerPassListProvider;
+import cleancode.mission.day7.model.passlistprovider.PassListProvider;
+import cleancode.mission.day7.model.passlistprovider.StudyCafePassListProvider;
+import cleancode.mission.day7.model.studycafepass.StudyCafeLockerPassImpl;
+import cleancode.mission.day7.model.studycafepass.StudyCafePass;
+import cleancode.mission.day7.model.studycafepass.StudyCafePassType;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class StudyCafePassMachine {
     private final InputHandler inputHandler = new InputHandler();
     private final OutputHandler outputHandler = new OutputHandler();
 
-    private static boolean existsLockerPass(StudyCafeLockerPassImpl lockerPass) {
+    private static boolean existsLockerPass(StudyCafePass lockerPass) {
         return lockerPass != null;
     }
 
@@ -32,6 +32,7 @@ public class StudyCafePassMachine {
 
             outputHandler.askPassTypeSelection();
             StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
+
             PassListProvider passListProvider = StudyCafePassListProvider.findStudyCafeManger(studyCafePassType);
             List<StudyCafePass> passes = passListProvider.getPassList();
 
@@ -39,8 +40,8 @@ public class StudyCafePassMachine {
             StudyCafePass selectedPass = inputHandler.getSelectPass(passes);
 
             if (isFixedStudyCafePass(studyCafePassType)) {
-                LockerPassListProvider studyCafeManager = StudyCafePassListProvider.findStudyCafeManger(StudyCafePassType.LOCKER);
-                StudyCafeLockerPassImpl lockerPass = studyCafeManager.getLockerPass(selectedPass);
+                LockerPassListProvider lockerPassListProvider = StudyCafePassListProvider.findStudyCafeManger(StudyCafePassType.LOCKER);
+                StudyCafeLockerPassImpl lockerPass = lockerPassListProvider.getLockerPass(selectedPass);
 
                 if (existsLockerPass(lockerPass)) {
                     outputHandler.askLockerPass(lockerPass);

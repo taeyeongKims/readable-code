@@ -1,9 +1,8 @@
 package cleancode.mission.day7.io;
 
-import cleancode.mission.day7.model.StudyCafeLockerPassImpl;
-import cleancode.mission.day7.model.StudyCafePass;
-import cleancode.mission.day7.model.StudyCafePassImpl;
-import cleancode.mission.day7.model.StudyCafePassType;
+import cleancode.mission.day7.model.studycafepass.StudyCafeLockerPassImpl;
+import cleancode.mission.day7.model.studycafepass.StudyCafePassImpl;
+import cleancode.mission.day7.model.studycafepass.StudyCafePassType;
 
 import java.io.IOException;
 import java.nio.file.Files;

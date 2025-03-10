@@ -1,35 +1,35 @@
-package cleancode.mission.day7.service;
+package cleancode.mission.day7.model.passlistprovider;
 
-import cleancode.mission.day7.model.StudyCafePassType;
+import cleancode.mission.day7.model.studycafepass.StudyCafePassType;
 
 import java.util.Arrays;
 
 public enum StudyCafePassListProvider implements StudyCafePassListProvidable {
-    HOURLY(StudyCafePassType.HOURLY){
+    HOURLY(StudyCafePassType.HOURLY) {
         @Override
         public PassListProvider provide() {
             return new HourlyPassListProvider();
         }
     },
-    WEEKLY(StudyCafePassType.WEEKLY){
+    WEEKLY(StudyCafePassType.WEEKLY) {
         @Override
         public PassListProvider provide() {
             return new WeeklyPassListProvider();
         }
     },
-    FIXED(StudyCafePassType.FIXED){
+    FIXED(StudyCafePassType.FIXED) {
         @Override
         public PassListProvider provide() {
             return new FixedPassListProvider();
         }
     },
-    LOCKER(StudyCafePassType.LOCKER){
+    LOCKER(StudyCafePassType.LOCKER) {
         @Override
         public PassListProvider provide() {
             return new LockerPassListProvider();
         }
     };
-    
+
     private final StudyCafePassType studyCafePassType;
 
     StudyCafePassListProvider(StudyCafePassType studyCafePassType) {

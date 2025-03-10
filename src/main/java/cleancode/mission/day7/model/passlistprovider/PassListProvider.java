@@ -1,7 +1,7 @@
-package cleancode.mission.day7.service;
+package cleancode.mission.day7.model.passlistprovider;
 
 import cleancode.mission.day7.io.StudyCafeFileHandler;
-import cleancode.mission.day7.model.StudyCafePass;
+import cleancode.mission.day7.model.studycafepass.StudyCafePass;
 
 import java.util.List;
 
