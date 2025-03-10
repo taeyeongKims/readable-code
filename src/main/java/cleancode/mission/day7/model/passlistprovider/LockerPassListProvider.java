@@ -1,14 +1,42 @@
 package cleancode.mission.day7.model.passlistprovider;
 
+import cleancode.mission.day7.io.InputHandler;
+import cleancode.mission.day7.io.OutputHandler;
 import cleancode.mission.day7.model.studycafepass.StudyCafeLockerPassImpl;
 import cleancode.mission.day7.model.studycafepass.StudyCafePass;
-import cleancode.studycafe.asis.model.StudyCafeLockerPass;
 
 import java.util.List;
 
-public class LockerPassListProvider implements PassListProvider {
-    @Override
-    public List<StudyCafePass> getPassList() {
+import static cleancode.mission.day7.model.passlistprovider.PassListProvider.studyCafeFileHandler;
+
+public class LockerPassListProvider {
+    private static StudyCafeLockerPassImpl getStudyCafeLockerPass(StudyCafePass selectedPass, List<StudyCafePass> lockerPassList) {
+        return lockerPassList.stream()
+            .filter(option ->
+                option.getPassType() == selectedPass.getPassType()
+                    && option.getDuration() == selectedPass.getDuration()
+            )
+            .map(StudyCafeLockerPassImpl.class::cast)
+            .findFirst()
+            .orElse(null);
+    }
+
+    public StudyCafeLockerPassImpl selectLockerPass(StudyCafePass selectedPass) {
+        List<StudyCafePass> lockerPassList = getPassList();
+
+        StudyCafeLockerPassImpl selectedLockerPass = getStudyCafeLockerPass(selectedPass, lockerPassList);
+
+        if (existsLockerPass(selectedLockerPass)) {
+            OutputHandler.askLockerPass(selectedLockerPass);
+
+            if (isSelectedLocker()) {
+                return selectedLockerPass;
+            }
+        }
+        return null;
+    }
+
+    private List<StudyCafePass> getPassList() {
         List<StudyCafeLockerPassImpl> lockerPasses = studyCafeFileHandler.readLockerPasses();
 
         return lockerPasses.stream()
@@ -16,16 +44,11 @@ public class LockerPassListProvider implements PassListProvider {
             .toList();
     }
 
-    public StudyCafeLockerPassImpl getLockerPass(StudyCafePass pass) {
-        List<StudyCafePass> lockerPassList = getPassList();
+    private boolean existsLockerPass(StudyCafeLockerPassImpl lockerPass) {
+        return lockerPass != null;
+    }
 
-        return lockerPassList.stream()
-            .filter(option ->
-                option.getPassType() == pass.getPassType()
-                    && option.getDuration() == pass.getDuration()
-            )
-            .map(StudyCafeLockerPassImpl.class::cast)
-            .findFirst()
-            .orElse(null);
+    private boolean isSelectedLocker() {
+        return InputHandler.getLockerSelection();
     }
 }

@@ -22,12 +22,6 @@ public enum StudyCafePassListProvider implements StudyCafePassListProvidable {
         public PassListProvider provide() {
             return new FixedPassListProvider();
         }
-    },
-    LOCKER(StudyCafePassType.LOCKER) {
-        @Override
-        public PassListProvider provide() {
-            return new LockerPassListProvider();
-        }
     };
 
     private final StudyCafePassType studyCafePassType;

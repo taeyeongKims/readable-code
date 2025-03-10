@@ -11,6 +11,27 @@ public class InputHandler {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
+    public static boolean getLockerSelection() {
+        String userInput = SCANNER.nextLine();
+        return isSelectedLockerPass(userInput);
+    }
+
+    private static boolean isSelectedHourlyPass(String userInput) {
+        return "1".equals(userInput);
+    }
+
+    private static boolean isSelectedWeeklyPass(String userInput) {
+        return "2".equals(userInput);
+    }
+
+    private static boolean isSelectedFixedPass(String userInput) {
+        return "3".equals(userInput);
+    }
+
+    private static boolean isSelectedLockerPass(String userInput) {
+        return "1".equals(userInput);
+    }
+
     public StudyCafePassType getPassTypeSelectingUserAction() {
         String userInput = SCANNER.nextLine();
 
@@ -30,26 +51,5 @@ public class InputHandler {
         String userInput = SCANNER.nextLine();
         int selectedIndex = Integer.parseInt(userInput) - 1;
         return passes.get(selectedIndex);
-    }
-
-    public boolean getLockerSelection() {
-        String userInput = SCANNER.nextLine();
-        return isSelectedLockerPass(userInput);
-    }
-
-    private static boolean isSelectedHourlyPass(String userInput) {
-        return "1".equals(userInput);
-    }
-
-    private static boolean isSelectedWeeklyPass(String userInput) {
-        return "2".equals(userInput);
-    }
-
-    private static boolean isSelectedFixedPass(String userInput) {
-        return "3".equals(userInput);
-    }
-
-    private static boolean isSelectedLockerPass(String userInput) {
-        return "1".equals(userInput);
     }
 }
