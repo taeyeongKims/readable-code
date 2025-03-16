@@ -27,4 +27,5 @@ public class GameConfig {
     public OutputHandler getOutputHandler() {
         return outputHandler;
     }
+
 }

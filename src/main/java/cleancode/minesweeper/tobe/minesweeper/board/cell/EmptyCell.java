@@ -44,4 +44,5 @@ public class EmptyCell implements Cell {
     public boolean isOpened() {
         return cellState.isOpened();
     }
+
 }

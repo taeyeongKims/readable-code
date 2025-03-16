@@ -16,4 +16,5 @@ public class FlagCellSignProvider implements CellSignProvidable {
     public String provide(CellSnapshot cellSnapshot) {
         return FLAG_SIGN;
     }
+
 }

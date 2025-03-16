@@ -16,4 +16,5 @@ public class Middle implements GameLevel {
     public int getLandMineCount() {
         return 40;
     }
+
 }

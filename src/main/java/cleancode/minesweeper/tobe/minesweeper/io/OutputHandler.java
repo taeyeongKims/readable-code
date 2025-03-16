@@ -4,19 +4,21 @@ import cleancode.minesweeper.tobe.minesweeper.board.GameBoard;
 import cleancode.minesweeper.tobe.minesweeper.exception.GameException;
 
 public interface OutputHandler {
-    public void showGameStartComments();
 
-    public void showBoard(GameBoard board);
+    void showGameStartComments();
 
-    public void showGameWinningComment();
+    void showBoard(GameBoard board);
 
-    public void showGameLosingComment();
+    void showGameWinningComment();
 
-    public void showCommentForSelectingCell();
+    void showGameLosingComment();
 
-    public void showCommentForUserAction();
+    void showCommentForSelectingCell();
 
-    public void showExceptionMessage(GameException exception);
+    void showCommentForUserAction();
 
-    public void showSimpleMessage(String message);
+    void showExceptionMessage(GameException e);
+
+    void showSimpleMessage(String message);
+
 }

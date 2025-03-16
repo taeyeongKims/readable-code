@@ -16,4 +16,5 @@ public class EmptyCellSignProvider implements CellSignProvidable {
     public String provide(CellSnapshot cellSnapshot) {
         return EMPTY_SIGN;
     }
+
 }

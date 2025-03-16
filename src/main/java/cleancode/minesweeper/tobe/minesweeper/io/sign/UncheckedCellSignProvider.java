@@ -16,4 +16,5 @@ public class UncheckedCellSignProvider implements CellSignProvidable {
     public String provide(CellSnapshot cellSnapshot) {
         return UNCHECKED_SIGN;
     }
+
 }

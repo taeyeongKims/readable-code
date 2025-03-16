@@ -21,6 +21,7 @@ public class ConsoleInputHandler implements InputHandler {
         if ("2".equals(userInput)) {
             return UserAction.FLAG;
         }
+
         return UserAction.UNKNOWN;
     }
 
@@ -30,6 +31,7 @@ public class ConsoleInputHandler implements InputHandler {
 
         int rowIndex = boardIndexConverter.getSelectedRowIndex(userInput);
         int colIndex = boardIndexConverter.getSelectedColIndex(userInput);
-        return CellPosition.of(colIndex, rowIndex);
+        return CellPosition.of(rowIndex, colIndex);
     }
+
 }

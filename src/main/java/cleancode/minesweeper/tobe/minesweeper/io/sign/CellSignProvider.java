@@ -28,7 +28,7 @@ public enum CellSignProvider implements CellSignProvidable {
     NUMBER(CellSnapshotStatus.NUMBER) {
         @Override
         public String provide(CellSnapshot cellSnapshot) {
-            return String.valueOf(cellSnapshot.getNearByLandMineCount());
+            return String.valueOf(cellSnapshot.getNearbyLandMineCount());
         }
     },
     UNCHECKED(CellSnapshotStatus.UNCHECKED) {
@@ -36,7 +36,8 @@ public enum CellSignProvider implements CellSignProvidable {
         public String provide(CellSnapshot cellSnapshot) {
             return UNCHECKED_SIGN;
         }
-    };
+    },
+    ;
 
     private static final String EMPTY_SIGN = "■";
     private static final String FLAG_SIGN = "⚑";
@@ -51,19 +52,19 @@ public enum CellSignProvider implements CellSignProvidable {
 
     public static String findCellSignFrom(CellSnapshot snapshot) {
         CellSignProvider cellSignProvider = findBy(snapshot);
-
         return cellSignProvider.provide(snapshot);
     }
 
     private static CellSignProvider findBy(CellSnapshot snapshot) {
         return Arrays.stream(values())
-                .filter(provider -> provider.supports(snapshot))
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException("확인할 수 없는 셀입니다."));
+            .filter(provider -> provider.supports(snapshot))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("확인할 수 없는 셀입니다."));
     }
 
     @Override
     public boolean supports(CellSnapshot cellSnapshot) {
         return cellSnapshot.isSameStatus(status);
     }
+
 }

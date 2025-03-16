@@ -23,15 +23,16 @@ public class ConsoleOutputHandler implements OutputHandler {
 
     @Override
     public void showBoard(GameBoard board) {
-        String joiningAlphabets = generateColAlphabets(board);
+        String alphabets = generateColAlphabets(board);
 
-        System.out.println("    " + joiningAlphabets);
+        System.out.println("    " + alphabets);
         for (int row = 0; row < board.getRowSize(); row++) {
             System.out.printf("%2d  ", row + 1);
             for (int col = 0; col < board.getColSize(); col++) {
                 CellPosition cellPosition = CellPosition.of(row, col);
 
                 CellSnapshot snapshot = board.getSnapshot(cellPosition);
+//                String cellSign = cellSignFinder.findCellSignFrom(snapshot);
                 String cellSign = CellSignProvider.findCellSignFrom(snapshot);
 
                 System.out.print(cellSign + " ");
@@ -43,11 +44,10 @@ public class ConsoleOutputHandler implements OutputHandler {
 
     private String generateColAlphabets(GameBoard board) {
         List<String> alphabets = IntStream.range(0, board.getColSize())
-                .mapToObj(index -> (char) ('a' + index))
-                .map(Object::toString)
-                .toList();
-        String joiningAlphabets = String.join(" ", alphabets);
-        return joiningAlphabets;
+            .mapToObj(index -> (char) ('a' + index))
+            .map(Object::toString)
+            .toList();
+        return String.join(" ", alphabets);
     }
 
     @Override
@@ -71,13 +71,13 @@ public class ConsoleOutputHandler implements OutputHandler {
     }
 
     @Override
-    public void showExceptionMessage(GameException exception) {
-        System.out.println(exception.getMessage());
-
+    public void showExceptionMessage(GameException e) {
+        System.out.println(e.getMessage());
     }
 
     @Override
     public void showSimpleMessage(String message) {
         System.out.println(message);
     }
+
 }

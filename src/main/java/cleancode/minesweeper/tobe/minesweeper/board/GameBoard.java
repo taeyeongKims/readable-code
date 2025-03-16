@@ -9,9 +9,9 @@ import cleancode.minesweeper.tobe.minesweeper.gamelevel.GameLevel;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 public class GameBoard {
+
     private final Cell[][] board;
     private final int landMineCount;
     private GameStatus gameStatus;
@@ -20,12 +20,11 @@ public class GameBoard {
         int rowSize = gameLevel.getRowSize();
         int colSize = gameLevel.getColSize();
         board = new Cell[rowSize][colSize];
-        initializeGameStatus();
 
         landMineCount = gameLevel.getLandMineCount();
+        initializeGameStatus();
     }
 
-    // 상태 변경
     public void initializeGame() {
         initializeGameStatus();
         CellPositions cellPositions = CellPositions.from(board);
@@ -39,13 +38,6 @@ public class GameBoard {
         initializeNumberCells(numberPositionCandidates);
     }
 
-    public void flagAt(CellPosition cellPosition) {
-        Cell cell = findCell(cellPosition);
-        cell.flag();
-
-        checkIfGameIsOver();
-    }
-
     public void openAt(CellPosition cellPosition) {
         if (isLandMineCellAt(cellPosition)) {
             openOneCellAt(cellPosition);
@@ -53,17 +45,24 @@ public class GameBoard {
             return;
         }
 
+//        openSurroundedCells(cellPosition);
         openSurroundedCells2(cellPosition);
         checkIfGameIsOver();
     }
 
-    // 판별
+    public void flagAt(CellPosition cellPosition) {
+        Cell cell = findCell(cellPosition);
+        cell.flag();
+
+        checkIfGameIsOver();
+    }
+
     public boolean isInvalidCellPosition(CellPosition cellPosition) {
         int rowSize = getRowSize();
         int colSize = getColSize();
 
         return cellPosition.isRowIndexMoreThanOrEqual(rowSize)
-                || cellPosition.isColIndexMoreThanOrEqual(colSize);
+            || cellPosition.isColIndexMoreThanOrEqual(colSize);
     }
 
     public boolean isInProgress() {
@@ -78,7 +77,6 @@ public class GameBoard {
         return gameStatus == GameStatus.LOSE;
     }
 
-    // 조회
     public CellSnapshot getSnapshot(CellPosition cellPosition) {
         Cell cell = findCell(cellPosition);
         return cell.getSnapshot();
@@ -92,7 +90,6 @@ public class GameBoard {
         return board[0].length;
     }
 
-
     private void initializeGameStatus() {
         gameStatus = GameStatus.IN_PROGRESS;
     }
@@ -100,46 +97,46 @@ public class GameBoard {
     private void initializeEmptyCells(CellPositions cellPositions) {
         List<CellPosition> allPositions = cellPositions.getPositions();
         for (CellPosition position : allPositions) {
-            updateCellsAt(position, new EmptyCell());
+            updateCellAt(position, new EmptyCell());
         }
     }
 
     private void initializeLandMineCells(List<CellPosition> landMinePositions) {
         for (CellPosition position : landMinePositions) {
-            updateCellsAt(position, new LandMineCell());
+            updateCellAt(position, new LandMineCell());
         }
     }
 
     private void initializeNumberCells(List<CellPosition> numberPositionCandidates) {
         for (CellPosition candidatePosition : numberPositionCandidates) {
-            int count = countNearByLandMines(candidatePosition);
+            int count = countNearbyLandMines(candidatePosition);
             if (count != 0) {
-                updateCellsAt(candidatePosition, new NumberCell(count));
+                updateCellAt(candidatePosition, new NumberCell(count));
             }
         }
     }
 
-    private int countNearByLandMines(CellPosition cellPosition) {
-        int rowSize = board.length;
-        int colSize = board[0].length;
+    private int countNearbyLandMines(CellPosition cellPosition) {
+        int rowSize = getRowSize();
+        int colSize = getColSize();
 
         long count = calculateSurroundedPositions(cellPosition, rowSize, colSize).stream()
-                .filter(this::isLandMineCellAt)
-                .count();
+            .filter(this::isLandMineCellAt)
+            .count();
 
         return (int) count;
     }
 
     private List<CellPosition> calculateSurroundedPositions(CellPosition cellPosition, int rowSize, int colSize) {
         return RelativePosition.SURROUNDED_POSITIONS.stream()
-                .filter(cellPosition::canCalculatePositionBy)
-                .map(cellPosition::calculatePositionBy)
-                .filter(position -> position.isRowIndexLessThan(rowSize))
-                .filter(position -> position.isColIndexLessThan(colSize))
-                .toList();
+            .filter(cellPosition::canCalculatePositionBy)
+            .map(cellPosition::calculatePositionBy)
+            .filter(position -> position.isRowIndexLessThan(rowSize))
+            .filter(position -> position.isColIndexLessThan(colSize))
+            .toList();
     }
 
-    private void updateCellsAt(CellPosition position, Cell cell) {
+    private void updateCellAt(CellPosition position, Cell cell) {
         board[position.getRowIndex()][position.getColIndex()] = cell;
     }
 
@@ -147,7 +144,6 @@ public class GameBoard {
         if (isOpenedCell(cellPosition)) {
             return;
         }
-
         if (isLandMineCellAt(cellPosition)) {
             return;
         }
@@ -163,7 +159,6 @@ public class GameBoard {
     }
 
     private void openSurroundedCells2(CellPosition cellPosition) {
-        Stack<CellPosition> stack = new Stack<>();
         Deque<CellPosition> deque = new ArrayDeque<>();
         deque.push(cellPosition);
 
@@ -177,7 +172,6 @@ public class GameBoard {
         if (isOpenedCell(currentCellPosition)) {
             return;
         }
-
         if (isLandMineCellAt(currentCellPosition)) {
             return;
         }
@@ -215,8 +209,7 @@ public class GameBoard {
     }
 
     private void checkIfGameIsOver() {
-        boolean isAllChecked = isAllCellChecked();
-        if (isAllChecked) {
+        if (isAllCellChecked()) {
             changeGameStatusToWin();
         }
     }
@@ -237,4 +230,5 @@ public class GameBoard {
     private Cell findCell(CellPosition cellPosition) {
         return board[cellPosition.getRowIndex()][cellPosition.getColIndex()];
     }
+
 }

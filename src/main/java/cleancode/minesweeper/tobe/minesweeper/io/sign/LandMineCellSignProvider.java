@@ -16,4 +16,5 @@ public class LandMineCellSignProvider implements CellSignProvidable {
     public String provide(CellSnapshot cellSnapshot) {
         return LAND_MINE_SIGN;
     }
+
 }

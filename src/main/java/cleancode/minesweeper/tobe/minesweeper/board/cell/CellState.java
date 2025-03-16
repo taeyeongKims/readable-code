@@ -5,7 +5,7 @@ public class CellState {
     private boolean isFlagged;
     private boolean isOpened;
 
-    public CellState(boolean isFlagged, boolean isOpened) {
+    private CellState(boolean isFlagged, boolean isOpened) {
         this.isFlagged = isFlagged;
         this.isOpened = isOpened;
     }
@@ -22,10 +22,6 @@ public class CellState {
         this.isOpened = true;
     }
 
-    public boolean isChecked() {
-        return isFlagged || isOpened;
-    }
-
     public boolean isOpened() {
         return isOpened;
     }
@@ -33,4 +29,5 @@ public class CellState {
     public boolean isFlagged() {
         return isFlagged;
     }
+
 }

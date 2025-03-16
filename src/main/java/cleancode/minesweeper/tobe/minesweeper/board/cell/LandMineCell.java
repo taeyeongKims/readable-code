@@ -1,6 +1,5 @@
 package cleancode.minesweeper.tobe.minesweeper.board.cell;
 
-
 public class LandMineCell implements Cell {
 
     private final CellState cellState = CellState.initialize();
@@ -45,4 +44,5 @@ public class LandMineCell implements Cell {
     public boolean isOpened() {
         return cellState.isOpened();
     }
+
 }

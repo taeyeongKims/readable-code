@@ -3,6 +3,7 @@ package cleancode.minesweeper.tobe.minesweeper.io;
 import cleancode.minesweeper.tobe.minesweeper.exception.GameException;
 
 public class BoardIndexConverter {
+
     private static final char BASE_CHAR_FOR_COL = 'a';
 
     public int getSelectedRowIndex(String cellInput) {
@@ -20,6 +21,7 @@ public class BoardIndexConverter {
         if (rowIndex < 0) {
             throw new GameException("잘못된 입력입니다.");
         }
+
         return rowIndex;
     }
 
@@ -28,6 +30,8 @@ public class BoardIndexConverter {
         if (colIndex < 0) {
             throw new GameException("잘못된 입력입니다.");
         }
+
         return colIndex;
     }
+
 }

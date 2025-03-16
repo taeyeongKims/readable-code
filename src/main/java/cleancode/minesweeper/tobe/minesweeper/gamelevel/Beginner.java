@@ -1,6 +1,7 @@
 package cleancode.minesweeper.tobe.minesweeper.gamelevel;
 
 public class Beginner implements GameLevel {
+
     @Override
     public int getRowSize() {
         return 8;
@@ -15,4 +16,5 @@ public class Beginner implements GameLevel {
     public int getLandMineCount() {
         return 10;
     }
+
 }
